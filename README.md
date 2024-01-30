@@ -1,5 +1,13 @@
 # Asynchronous JavaScript Comparison Table
 
+I created this comparison table to clarify some useful differences in using the `fetch()` method and the `async/await` syntax in JavaScript. As a beginner myself, I found it valuable to understand these distinctions and make informed decisions when working with asynchronous operations.
+
+This table is intended to serve as a quick reference for beginners, offering insights into the advantages and trade-offs between using `fetch()` with callbacks and the cleaner `async/await` approach. I hope it proves beneficial to others navigating the complexities of asynchronous coding in JavaScript.
+
+Feel free to explore the provided examples and explanations to help you make informed choices in your own projects. Happy coding!
+
+# Comparison Table
+
 | Feature            | `fetch()` without `async/await`                                                                       | `async/await` with an `async` function                                 |
 | ------------------ | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | **Syntax**         | Relies on `.then()` and `.catch()` for handling promises.                                             | Uses `async` function and `await` keyword for more sequential code.    |
