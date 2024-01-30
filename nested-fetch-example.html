@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested Fetch Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #data-container {
+            text-align: left;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        #data-container ol {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #data-container ol li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Nested Fetch Example</h1>
+        <div id="data-container"></div>
+        <script>
+            const fetchDataWithCallbacks = () => {
+                fetch('https://jsonplaceholder.typicode.com/users/1')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to retrieve data from JSONPlaceholder API');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById('data-container').innerHTML += `<p>Data from fetch(): ${JSON.stringify(data)}</p>`;
+                        return fetch('https://jsonplaceholder.typicode.com/posts/' + data.id);
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch second data');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById('data-container').innerHTML += `<p>Data from second fetch(): ${JSON.stringify(data)}</p>`;
+                        return fetch('https://jsonplaceholder.typicode.com/comments/' + data.userId);
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch third data');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById('data-container').innerHTML += `<p>Data from third fetch(): ${JSON.stringify(data)}</p>`;
+                    })
+                    .catch(error => {
+                        document.getElementById('data-container').innerHTML += `<p>Error: ${error.message}</p>`;
+                    });
+            };
+
+            // Call the fetch function
+            fetchDataWithCallbacks();
+        </script>
+    </div>
+</body>
+
+</html>
